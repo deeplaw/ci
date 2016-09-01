@@ -1,0 +1,15 @@
+sudo: required
+
+language: java
+
+services:
+  - docker
+
+jdk:
+  - oraclejdk8
+  
+before_script:
+  - export ANT_OPTS=-Xmx2g
+
+script:
+  - make build
