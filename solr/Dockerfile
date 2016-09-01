@@ -12,8 +12,10 @@ ENV SOLR_UID 8983
 RUN groupadd -r -g $SOLR_UID $SOLR_USER && \
   useradd -r -u $SOLR_UID -g $SOLR_USER $SOLR_USER
 
+COPY build/package/solr.tgz /opt/
 RUN mkdir -p /opt/solr && \
-  git clone --branch master https://bitbucket.org/deeplaw/solr && \
+  tar -C /opt/solr --extract --file /opt/solr.tgz --strip-components=1 && \
+  rm /opt/solr.tgz* && \
   mkdir -p /opt/solr/server/solr/lib /opt/solr/server/solr/mycores && \
   sed -i -e 's/#SOLR_PORT=8983/SOLR_PORT=8983/' /opt/solr/bin/solr.in.sh && \
   sed -i -e '/-Dsolr.clustering.enabled=true/ a SOLR_OPTS="$SOLR_OPTS -Dsun.net.inetaddr.ttl=60 -Dsun.net.inetaddr.negative.ttl=60"' /opt/solr/bin/solr.in.sh && \
