@@ -12,4 +12,4 @@ before_script:
   - export ANT_OPTS=-Xmx2g
 
 script:
-  - make build
+  - make package
