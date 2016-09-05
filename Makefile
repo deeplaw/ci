@@ -9,9 +9,9 @@ clone:
 pull:
 	git --git-dir=solr/build --work-tree=solr/build pull
 
-build: clone
+build: 
 	ant -Dbasedir="solr/build/solr" -f "solr/build/solr/build.xml" compile
 
-package: clone
+package:
 	ant -Dbasedir="solr/build/solr" -f "solr/build/solr/build.xml" package
 	docker build solr/
